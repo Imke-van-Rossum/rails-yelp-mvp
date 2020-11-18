@@ -1,8 +1,6 @@
 class Review < ApplicationRecord
   belongs_to :restaurant
 
-  validates_associated :restaurant
-
-  validates :content, presence: true, length: { minimum: 10 }
-  validates :rating, presence: true, :inclusion => 1..5
+  validates :content, presence: true
+  validates :rating, inclusion: { in: 0..5 }, numericality: { only_integer: true }
 end

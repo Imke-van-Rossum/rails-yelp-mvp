@@ -8,11 +8,16 @@ class ReviewsController < ApplicationController
   def create
     # get data from params
     # create a new object with data
+    @restaurant = Restaurant.find(params[:restaurant_id])
     @review = Review.new(review_params)
     # save it
-    @review.save
-    # redirect to SHOW page
-    redirect_to review_path(@review)
+    @review.restaurant = @restaurant
+    if @review.valid?
+      @review.save
+      redirect_to restaurant_path(@restaurant)
+    else
+      render :new
+    end
   end
 
   def destroy
@@ -30,6 +35,6 @@ class ReviewsController < ApplicationController
   end
 
   def set_review
-    @review = review.find(params[:id])
+    @review = Review.find(params[:id])
   end
 end
