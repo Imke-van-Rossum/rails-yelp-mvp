@@ -2,6 +2,7 @@ class ReviewsController < ApplicationController
   before_action :set_review, only: [:destroy]
 
   def new
+    @restaurant = Restaurant.find(params[:restaurant_id])
     @review = Review.new
   end
 
