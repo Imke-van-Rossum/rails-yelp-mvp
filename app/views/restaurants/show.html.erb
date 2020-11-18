@@ -3,15 +3,35 @@
 <p><%= @restaurant.address %></p>
 <p><%= @restaurant.phone_number %></p>
 <p><%= @restaurant.category %></p>
+<h4>Reviews</h4>
+<div class="list-group">
+  <% @restaurant.reviews.each do |review| %>
+  <li class="list-group-item">
+    <small>
+      <% count = 0 %>
+      <% 5.times do %>
+      <% if review.rating > count %>
+      <i class="fas fa-star"></i>
+      <% else %>
+      <i class="far fa-star"></i>
+      <% end %>
+      <% count += 1 %>
+      <% end %>
+    </small>
+    <p><%= review.content %></p>
+  </li>
+  <% end %>
+</div>
 
 <p><%= link_to 'Edit Restaurant', edit_restaurant_path %></p>
 
 <p>
   <%= link_to 'Delete restaurant', restaurant_path,
-                        method: :delete,
-                        data: { confirm: 'Are you sure?' } %>
+  method: :delete,
+  data: { confirm: 'Are you sure?' } %>
 </p>
 
 <p><%= link_to 'Return to Restaurants', restaurants_path %></p>
 
 <p><%= link_to 'Create review', new_restaurant_review_path(@restaurant) %></p>
+
